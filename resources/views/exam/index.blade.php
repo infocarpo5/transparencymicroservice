@@ -35,7 +35,7 @@
                       <p class="text-xs text-secondary mb-0">{{ $row->abbreviation }}</p>
                     </td>
                     <td>
-                      <p class="text-xs text-secondary mb-0">{{ $row->class->name }}</p>
+                      <p class="text-xs text-secondary mb-0">{{ $row->subject->class->name ?? "" }}</p>
                     </td>
                     <td>
                       <p class="text-xs text-secondary mb-0">{{ $row->subject->name }}</p>

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('pass_mark')->nullable();
             $table->integer('class_id')->nullable();
             $table->string('year')->nullable();
+            $table->string('unit')->nullable();
             $table->string('uuid')->nullable();
             $table->timestamps();
         });

@@ -7,6 +7,7 @@ use App\Models\Exam;
 use App\Models\Student;
 use App\Models\ExamScore;
 use App\Models\Clas;
+use App\Models\Subject;
 
 
 class ExamController extends Controller
@@ -24,7 +25,7 @@ class ExamController extends Controller
     public function add()
     {
         return view('exam.add', [
-            'classes' => Clas::get(['id', 'name'])
+            'subjects' => Subject::get(['id', 'name'])        
         ]);
     }
 
@@ -37,25 +38,25 @@ class ExamController extends Controller
                 'term' => ['required', 'string'],
                 'abbreviation' => ['required', 'string'],
                 'date' => ['required', 'date'],
-                'class_id' => ['required']
+                'subject_id' => ['required']
             ]);
             $data['uuid']  = \Str::uuid();
-            // dd($data);
             $exam = Exam::create($data);
-            $students = Student::where('class_id', $exam->class_id)->get();
+            $class = Clas::whereIn('id', Subject::where('id', $request->subject_id)->get(['id']))->first();
+            $students = Student::where('class_id', $class->id)->get();
             // dd($students);
             foreach($students as $student) {
                 ExamScore::create([
                     'exam_id' => $exam->id,
                     'student_id' => $student->id,
                     'score' => null,
-                    'class_id' => $student->class->id,
+                    // 'class_id' => $student->class->id,
                     'uuid' => \Str::uuid(),
                 ]);
             }
             return redirect('/exam/index')->with('success', 'exam added successfully');
         } catch (\Exception $th) {
-            dd($th->getMessage());
+            // dd($th->getMessage());
             \Log::error($th);
 
             // Return a user-friendly error message
@@ -77,20 +78,20 @@ class ExamController extends Controller
     {
         $exam = Exam::where('uuid', $uuid)->first();
         $query = ExamScore::where('exam_id', $exam->id)->get();
-        // dd($query);
         $data = $query->map(fn ($item) => [
             'studentName' => $item->student->name,
-            'studentId' => $item->student->id,
+            'studentId' => $item->student->uuid,
             'scoreUuId' => $item->uuid,
             'score' => $item->score,
+            'unit' => $item->exam->subject->unit ?? "",
         ]);
-        // dd($data);
         return response()->json($data);
     }
 
     public function mark()
     {
-       $score = ExamScore::where('student_id', (int)request('studentId'))->whereIn('exam_id', Exam::where('uuid', request('examId'))->get(['id']))->first();
+        // dd(request()->all());
+       $score = ExamScore::whereIn('student_id', Student::where('uuid', request('studentId'))->get(['id']))->whereIn('exam_id', Exam::where('uuid', request('examId'))->get(['id']))->first();
        $updated = $score->update([
         'score' => request('score')
        ]);
@@ -119,6 +120,43 @@ class ExamController extends Controller
         } catch (Exception $e) {
             return response()->json(['message' => 'An error occurred while deleting the class'], 500);
         }
+    }
+
+    public function results($student)
+    {
+        $studentID = $student;
+        $query = ExamScore::whereIn('student_id', Student::where('uuid', $student)->get(['id']))->get();
+        $data = $query->map(fn ($item, $index = 0) => [
+            'studentName' => $item->student->name,
+            'score' => $item->score,
+            'semester' => $item->exam->term,
+            'sn' => $index += 1,
+            'subject' => $item->exam->subject->name ?? "",
+        ])->groupBy('semester');
+        // dd($data);
+        return view('exam.results', [
+            'data' => $data,
+            'student' => Student::where('uuid', $student)->first(),
+            'studentID' => $studentID
+        ]);
+    }
+
+    public function printResults($student)
+    {
+        $query = ExamScore::whereIn('student_id', Student::where('uuid', $student)->get(['id']))->get();
+        $data = $query->map(fn ($item, $index = 0) => [
+            'studentName' => $item->student->name,
+            'score' => $item->score,
+            'semester' => $item->exam->term,
+            'sn' => $index += 1,
+            'subject' => $item->exam->subject->name ?? "",
+            'unit' => $item->exam->subject->unit ?? "",
+        ])->groupBy('semester');
+        // dd($data);
+        return view('exam.print', [
+            'data' => $data,
+            'student' => Student::where('uuid', $student)->first()
+        ]);
     }
 
 }

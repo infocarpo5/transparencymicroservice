@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('abbreviation')->nullable();
             $table->string('term')->nullable();
-            $table->integer('class_id')->nullable();
+            $table->integer('subject_id')->nullable();
             $table->string('date')->nullable();
             $table->integer('is_done')->default(0);
             $table->string('uuid')->nullable();

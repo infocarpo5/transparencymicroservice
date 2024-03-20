@@ -56,12 +56,12 @@
                                 </div>
                             </div>
                             <div class="form-group col-lg-6">
-                              <label class="px-2">Class Name</label>
+                              <label class="px-2">Subject Name</label>
                               <div class="mb-3 px-2">
                                       <div class="form-group">
-                                        <select class="form-control" name="class_id" id="class_id">
+                                        <select class="form-control" name="subject_id" id="subject_id">
                                           <option value="">-select--</option>
-                                          @foreach($classes as $clas)
+                                          @foreach($subjects as $clas)
                                           <option value="{{ $clas->id }}">{{ $clas->name }}</option>
                                           @endforeach
                                         </select>

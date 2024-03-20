@@ -32,6 +32,13 @@
                                 </div>
                             </div>
                             <div class="form-group col-lg-6">
+                              <label class="px-2">Subject Unit</label>
+                              <div class="mb-3 px-2">
+                                  <input type="number" class="form-control" name="unit" placeholder="eg.. 12" value="{{ old('unit') }}"
+                                      aria-describedby="email-addon">
+                              </div>
+                          </div>
+                            <div class="form-group col-lg-6">
                               <label class="px-2">Class Name</label>
                               <div class="mb-3 px-2">
                                       <div class="form-group">

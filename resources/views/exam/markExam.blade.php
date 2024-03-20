@@ -72,7 +72,6 @@
     </div>
     {{-- end modal --}}
 @endsection
-
 @section('scripts')
 <script>
       function closeSession(){
@@ -151,7 +150,7 @@ $(document).ready(function () {
       response.forEach(function(item, index) {
       studentsHtml += '<tr class="text-left">';
       studentsHtml += '<td class="text-left"><p class="text-xs text-secondary mb-0">' + (index + 1) + '</p></td>';
-      studentsHtml += '<td class="text-left"><p class="text-xs text-secondary mb-0">' + item.studentName + '</p></td>';
+      studentsHtml += '<td class="text-left"><a href="/results/'+ item.studentId +'">' + item.studentName + '</a></td>';
       studentsHtml += '<td class="text-left">' + (item.score !== null ? item.score : '<input type="text" id="score_input_' + item.studentId + '" class="form-control score-input" name="mark"  placeholder="Fill marks">') + '</td>';
       studentsHtml += '</tr>';
     });

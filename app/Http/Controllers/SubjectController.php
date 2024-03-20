@@ -28,10 +28,13 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string'],
+            'unit' => ['required', 'string'],
+            'class_id' => ['required'],
         ]);
         Subject::create([
             'name' => $request->name,
-            'class_id' => $request->class_id,
+            'class_id' => (int)$request->class_id,
+            'unit' => (int)$request->unit,
             'uuid' => \Str::uuid(),
         ]);
         return redirect('/subject/index')->with('success', 'Subjects added successfully');
@@ -40,8 +43,24 @@ class SubjectController extends Controller
     public function edit($id)
     {
         return view('subject.edit', [
-            'subject' => Subject::where('uuid', $id)->first()
+            'subject' => Subject::where('uuid', $id)->first(),
+            'classes' => Clas::all()
         ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => ['required', 'string'],
+            'unit' => ['required', 'string'],
+            'class_id' => ['required'],
+        ]);
+        Subject::where('uuid', $id)->first()->update([
+            'name' => $request->name,
+            'class_id' => (int)$request->class_id,
+            'unit' => (int)$request->unit,
+        ]);
+        return redirect('/subject/index')->with('success', 'Subjects updated successfully');
     }
 
     public function delete($id)

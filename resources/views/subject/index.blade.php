@@ -14,6 +14,7 @@
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">#</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject Name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject Unit</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Class Name</th>
                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                   </tr>
@@ -27,10 +28,13 @@
                       <p class="text-xs text-secondary mb-0">{{ $row->name }}</p>
                     </td>
                     <td>
+                      <p class="text-xs text-secondary mb-0">{{ $row->unit ?? "" }}</p>
+                    </td>
+                    <td>
                       <p class="text-xs text-secondary mb-0">{{ $row->class->name }}</p>
                     </td>
                     <td class="align-middle">
-                      <a href="{{ url('class/edit/'.$row->uuid) }}" class="text-secondary btn btn-sm btn-outline-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      <a href="{{ url('subject/edit/'.$row->uuid) }}" class="text-secondary btn btn-sm btn-outline-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                         Edit
                       </a>
                       <a  onclick="archiveFunction('<?= $row->uuid ?>')" class="text-secondary btn btn-sm btn-outline-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
