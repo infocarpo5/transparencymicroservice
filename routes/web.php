@@ -71,6 +71,7 @@ Route::group(['prefix' => '/exam'], function () {
 Route::post('/mark', [ExamController::class, 'mark']);
 Route::get('/results/{id}', [ExamController::class, 'results']);
 Route::get('/print-results/{id}', [ExamController::class, 'printResults']);
+Route::get('/send-email', [ExamController::class, 'sendEmail']);
 
 
 

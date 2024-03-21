@@ -8,6 +8,8 @@ use App\Models\Student;
 use App\Models\ExamScore;
 use App\Models\Clas;
 use App\Models\Subject;
+use App\Mail\SendToParent;
+use Mail;
 
 
 class ExamController extends Controller
@@ -157,6 +159,16 @@ class ExamController extends Controller
             'data' => $data,
             'student' => Student::where('uuid', $student)->first()
         ]);
+    }
+
+    public function sendEmail()
+    {
+        $title = 'School Info';
+        $body = 'We would like to inform you that the results have published. Please use the credentials below to log into your platform so that you can view results via API!';
+
+        Mail::to('kelvinchambulila5@gmail.com')->send(new SendToParent($title, $body));
+
+        return "Email sent successfully!";
     }
 
 }
