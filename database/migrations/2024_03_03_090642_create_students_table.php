@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('parent_name')->nullable();
             $table->string('parent_phone')->nullable();
             $table->string('parent_email')->nullable();
+            $table->string('password')->nullable();
             $table->string('uuid');
             $table->timestamps();
         });

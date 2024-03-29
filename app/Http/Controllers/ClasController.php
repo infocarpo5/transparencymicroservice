@@ -32,7 +32,7 @@ class ClasController extends Controller
             'name' => $request->name,
             'uuid' => \Str::uuid(),
         ]);
-        return redirect('/class/index')->with('success', 'Class added successfully');
+        return redirect('/programmes/index')->with('success', 'Class added successfully');
     }
 
     public function edit($id)

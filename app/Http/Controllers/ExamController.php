@@ -73,21 +73,27 @@ class ExamController extends Controller
         return view('exam.markExam', [
             'exam' => $score->exam->name ?? "",
             'exam' => "bios" ?? "",
+            'exam_id' => $uuid,
         ]);
     }
 
     public function getDataToMark($uuid)
     {
         $exam = Exam::where('uuid', $uuid)->first();
-        $query = ExamScore::where('exam_id', $exam->id)->get();
-        $data = $query->map(fn ($item) => [
+        $query = ExamScore::where('exam_id', $exam->id);
+        $data = $query->get()->map(fn ($item) => [
             'studentName' => $item->student->name,
             'studentId' => $item->student->uuid,
             'scoreUuId' => $item->uuid,
             'score' => $item->score,
             'unit' => $item->exam->subject->unit ?? "",
         ]);
-        return response()->json($data);
+        $unmarked = $query->where('score', null)->where('is_published', 0)->get()->count();
+        $response = [
+            'data' => $data,
+            'show_publish_button' => $unmarked > 0 ? false : true
+        ];
+        return response()->json($response);
     }
 
     public function mark()
@@ -135,7 +141,7 @@ class ExamController extends Controller
             'sn' => $index += 1,
             'subject' => $item->exam->subject->name ?? "",
         ])->groupBy('semester');
-        // dd($data);
+        
         return view('exam.results', [
             'data' => $data,
             'student' => Student::where('uuid', $student)->first(),
@@ -169,6 +175,23 @@ class ExamController extends Controller
         Mail::to('kelvinchambulila5@gmail.com')->send(new SendToParent($title, $body));
 
         return "Email sent successfully!";
+    }
+
+    public function publishResult($id)
+    {
+        $exam_scores = ExamScore::whereIn('exam_id', Exam::whereUuid($id)->get(['id']))->get();
+            foreach($exam_scores as $score) {
+                $score->update([
+                    'is_published' => 1
+                ]);        
+            }
+        
+        foreach($exam_scores as $student) {
+            $title = 'School Info';
+            $body = 'We would like to inform you that the results of your student ' .ucwords($student->student->name). ' have published. Please use the credentials below to log into your platform so that you can view results via API!';
+            Mail::to($student->student->parent_email)->send(new SendToParent($title, $body));
+        }
+        return back()->withSuccess("Results successfully published");
     }
 
 }

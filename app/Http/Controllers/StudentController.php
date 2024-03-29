@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Clas;
 use App\Models\Student;
+use App\Models\User;
 
 
 class StudentController extends Controller
@@ -38,7 +39,9 @@ class StudentController extends Controller
             'class_id' => ['required'],
         ]);
         $data['uuid']  = \Str::uuid();
-        Student::create($data);
+        $data['password']  = \Hash::make($request->parent_phone);
+        $data['role_id']  = 0;
+        User::create($data);
         return redirect('/student/index')->with('success', 'student added successfully');
     }
 }

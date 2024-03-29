@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <h6>Classes List</h6>
+          <h6>Programmes List</h6>
           <a class="btn btn-outline-default btn-sm mb-0 me-3"  href="{{ route('class.add') }}">Add</a>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
@@ -13,7 +13,7 @@
               <thead>
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">#</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Class Name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Programme Name</th>
                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                   </tr>
               </thead>
@@ -26,7 +26,7 @@
                       <p class="text-xs text-secondary mb-0">{{ $row->name }}</p>
                     </td>
                     <td class="align-middle">
-                      <a href="{{ url('class/edit/'.$row->uuid) }}" class="text-secondary btn btn-sm btn-outline-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      <a href="{{ url('programmes/edit/'.$row->uuid) }}" class="text-secondary btn btn-sm btn-outline-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                         Edit
                       </a>
                       <a  onclick="archiveFunction('<?= $row->uuid ?>')" class="text-secondary btn btn-sm btn-outline-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
@@ -139,7 +139,7 @@
     }
 
   function more(id){
-    $.get('/class/show/' + id, function(response){
+    $.get('/programmes/show/' + id, function(response){
         $('#email').text(response.email);
         $('#username').text(response.username + ' Profile');
         $('#usernamee').text(response.username);
@@ -175,7 +175,7 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: '/class/delete/' + id,
+        url: '/programmes/delete/' + id,
         success: function(response) {
           $("#successModal").show();
           $("#data").text(response.message);

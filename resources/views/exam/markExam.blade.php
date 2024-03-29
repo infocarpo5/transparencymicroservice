@@ -3,9 +3,13 @@
 <div class="row">
     <div class="col-12">
       <div class="card mb-4">
-        <div class="card-header pb-0">
-          <h6>{{ $exam }} Mark Exam </h6>
-          {{-- <a class="btn btn-outline-default btn-sm mb-0 me-3"  href="{{ route('exam.create') }}">Add</a> --}}
+        <div class="card-header pb-0 row">
+          <div class="col-md-8">
+            <h6>{{ $exam }} Mark Exam </h6>
+          </div>
+          <div class="col-md-4">
+            <a class="mb-0 me-3 publish"  href="{{ route('publish', $exam_id) }}"></a>
+          </div>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
@@ -147,14 +151,19 @@ $(document).ready(function () {
       let studentsHtml = '';
       let index = 1;
 
-      response.forEach(function(item, index) {
+      response.data.forEach(function(item, index) {
       studentsHtml += '<tr class="text-left">';
       studentsHtml += '<td class="text-left"><p class="text-xs text-secondary mb-0">' + (index + 1) + '</p></td>';
       studentsHtml += '<td class="text-left"><a href="/results/'+ item.studentId +'">' + item.studentName + '</a></td>';
       studentsHtml += '<td class="text-left">' + (item.score !== null ? item.score : '<input type="text" id="score_input_' + item.studentId + '" class="form-control score-input" name="mark"  placeholder="Fill marks">') + '</td>';
       studentsHtml += '</tr>';
     });
+
       $("#data-here").append(studentsHtml);
+      if(response.show_publish_button === true) {
+        $(".publish").text("Publish");
+        $(".publish").addClass("btn btn-outline-default btn-sm ");
+      }
     }
   });
 

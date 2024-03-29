@@ -37,7 +37,7 @@ class SubjectController extends Controller
             'unit' => (int)$request->unit,
             'uuid' => \Str::uuid(),
         ]);
-        return redirect('/subject/index')->with('success', 'Subjects added successfully');
+        return redirect('/courses/index')->with('success', 'Subjects added successfully');
     }
 
     public function edit($id)
@@ -60,7 +60,7 @@ class SubjectController extends Controller
             'class_id' => (int)$request->class_id,
             'unit' => (int)$request->unit,
         ]);
-        return redirect('/subject/index')->with('success', 'Subjects updated successfully');
+        return redirect('/courses/index')->with('success', 'Subjects updated successfully');
     }
 
     public function delete($id)

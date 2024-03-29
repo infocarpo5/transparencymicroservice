@@ -25,7 +25,7 @@ Route::get('/', function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-Route::group(['prefix' => 'class'], function () {
+Route::group(['prefix' => 'programmes'], function () {
     Route::any('/index', [ClasController::class, 'index'])->name('class.index');
     Route::any('/call', [ClasController::class, 'callData']);
     Route::any('/add', [ClasController::class, 'add'])->name('class.add');
@@ -36,7 +36,7 @@ Route::group(['prefix' => 'class'], function () {
     Route::any('/show/{id}', [ClasController::class, 'show'])->name('class.show');
 });
 
-Route::group(['prefix' => 'subject'], function () {
+Route::group(['prefix' => 'courses'], function () {
     Route::any('/index', [SubjectController::class, 'index'])->name('subject.index');
     Route::any('/add', [SubjectController::class, 'add'])->name('subject.create');
     Route::any('/store', [SubjectController::class, 'store'])->name('subject.store');
@@ -72,6 +72,7 @@ Route::post('/mark', [ExamController::class, 'mark']);
 Route::get('/results/{id}', [ExamController::class, 'results']);
 Route::get('/print-results/{id}', [ExamController::class, 'printResults']);
 Route::get('/send-email', [ExamController::class, 'sendEmail']);
+Route::get('/publish-results/{id}', [ExamController::class, 'publishResult'])->name('publish');
 
 
 

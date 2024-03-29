@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('student_id')->nullable();
             $table->integer('exam_id')->nullable();
             $table->integer('score')->nullable();
+            $table->integer('is_published')->default(0);
             $table->string('uuid');
             $table->timestamps();
         });

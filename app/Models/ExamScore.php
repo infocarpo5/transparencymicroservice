@@ -10,7 +10,7 @@ class ExamScore extends Model
     use HasFactory;
 
     protected $fillable = [
-     'student_id', 'class_id', 'exam_id', 'score', 'uuid'
+     'student_id', 'class_id', 'exam_id', 'score', 'uuid', 'is_published'
     ];
 
     public function student()

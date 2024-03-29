@@ -5,11 +5,11 @@
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
-                        <a href="{{ url('class/index') }}">
+                        <a href="{{ url('programmes/index') }}">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Active Classes</p>
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Programmes</p>
                                 <h5 class="font-weight-bolder mb-0">
-                                    {{ $activeClasses }}
+                                    {{ $programmes }}
                                     <span class="text-success text-sm font-weight-bolder"></span>
                                 </h5>
                             </div>
@@ -29,11 +29,11 @@
             <div class="card-body p-3">
                 <div class="row">
                     <div class="col-8">
-                        <a href="{{ url('consumer/index') }}">
+                        <a href="{{ url('students/index') }}">
                             <div class="numbers">
-                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Active Consumers</p>
+                                <p class="text-sm mb-0 text-capitalize font-weight-bold">Students</p>
                                 <h5 class="font-weight-bolder mb-0">
-                                    {{ $activeConsumers }}
+                                    {{ $students }}
                                     {{-- <span class="text-success text-sm font-weight-bolder">+3%</span> --}}
                                 </h5>
                             </div>
@@ -54,9 +54,9 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">No of Routes</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Courses</p>
                             <h5 class="font-weight-bolder mb-0">
-                                {{ $routesCount }}
+                                {{ $courses }}
                                 {{-- <span class="text-danger text-sm font-weight-bolder">-2%</span> --}}
                             </h5>
                         </div>
@@ -76,9 +76,9 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="numbers">
-                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Exams</p>
                             <h5 class="font-weight-bolder mb-0">
-                                $103,430
+                                {{ $exams }}
                                 {{-- <span class="text-success text-sm font-weight-bolder">+5%</span> --}}
                             </h5>
                         </div>

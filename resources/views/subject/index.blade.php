@@ -4,7 +4,7 @@
     <div class="col-12">
       <div class="card mb-4">
         <div class="card-header pb-0">
-          <h6>Subjects List</h6>
+          <h6>Courses List</h6>
           <a class="btn btn-outline-default btn-sm mb-0 me-3"  href="{{ route('subject.create') }}">Add</a>
         </div>
         <div class="card-body px-0 pt-0 pb-2">
@@ -13,9 +13,9 @@
               <thead>
                 <tr>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">#</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject Name</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject Unit</th>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Class Name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course Name</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><center>Course Unit</center></th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><center>Programme</center></th>
                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                   </tr>
               </thead>
@@ -28,13 +28,17 @@
                       <p class="text-xs text-secondary mb-0">{{ $row->name }}</p>
                     </td>
                     <td>
-                      <p class="text-xs text-secondary mb-0">{{ $row->unit ?? "" }}</p>
+                      <center>
+                        <p class="text-xs text-secondary mb-0">{{ $row->unit ?? "" }}</p>
+                      </center>
                     </td>
                     <td>
-                      <p class="text-xs text-secondary mb-0">{{ $row->class->name }}</p>
+                      <center>
+                        <p class="text-xs text-secondary mb-0">{{ $row->class->name }}</p>
+                      </center>
                     </td>
                     <td class="align-middle">
-                      <a href="{{ url('subject/edit/'.$row->uuid) }}" class="text-secondary btn btn-sm btn-outline-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                      <a href="{{ url('courses/edit/'.$row->uuid) }}" class="text-secondary btn btn-sm btn-outline-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                         Edit
                       </a>
                       <a  onclick="archiveFunction('<?= $row->uuid ?>')" class="text-secondary btn btn-sm btn-outline-danger font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
@@ -103,7 +107,7 @@
     }
 
   function more(id){
-    $.get('/subject/show/' + id, function(response){
+    $.get('/courses/show/' + id, function(response){
         $('#email').text(response.email);
         $('#username').text(response.username + ' Profile');
         $('#usernamee').text(response.username);
@@ -139,7 +143,7 @@
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        url: '/subject/delete/' + id,
+        url: '/courses/delete/' + id,
         success: function(response) {
           $("#successModal").show();
           $("#data").text(response.message);

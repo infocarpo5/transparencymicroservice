@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Exam;
+use App\Models\Subject;
+use App\Models\Clas;
+use App\Models\Student;
 
 class HomeController extends Controller
 {
@@ -24,10 +28,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $activeClasses = User::where('role_id', 1)->where('status', 1)->count();
-        $activeConsumers = User::where('role_id', 2)->where('status', 1)->count();
-        $routesCount = 23;
+        $programmes = Clas::count();
+        $courses = Subject::count();
+        $students = Student::count();
+        $exams = Exam::count();
 
-        return view('home', compact('activeClasses', 'activeConsumers', 'routesCount'));
+        return view('home', [
+            'programmes' => $programmes,
+            'students' => $students,
+            'courses' => $courses,
+            'exams' => $exams
+        ]);
     }
 }
