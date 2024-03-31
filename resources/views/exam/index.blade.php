@@ -68,7 +68,9 @@
           </div>
         </div>
       </div>
+      @if (count($exam))
       <div class="text-center"> {{ $exam->onEachSide(1)->links('vendor.pagination.custom') }} </div>
+      @endif
     </div>
   </div>
 

@@ -13,9 +13,9 @@ class ExamScore extends Model
      'student_id', 'class_id', 'exam_id', 'score', 'uuid', 'is_published'
     ];
 
-    public function student()
+    public function user()
     {
-        return $this->belongsTo(Student::class, 'student_id', 'id')->withDefault(['name' => 'Not Defined']);
+        return $this->belongsTo(User::class, 'student_id', 'id')->withDefault(['full_name' => 'Not Defined']);
     }
 
     public function exam()

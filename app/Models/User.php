@@ -28,7 +28,12 @@ class User extends Authenticatable
         'image',
         'nida',
         'license',
-        'plate_number'
+        'plate_number',
+        'parent_email',
+        'parent_phone',
+        'parent_name',
+        'class_id',
+        'reg',
     ];
 
     /**
@@ -52,5 +57,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function class()
+    {
+        return $this->belongsTo(Clas::class, 'class_id', 'id')->withDefault(['name' => 'Not Defined']);
     }
 }

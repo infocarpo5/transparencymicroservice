@@ -5,7 +5,9 @@
       <div class="card mb-4">
         <div class="card-header pb-0">
           <h6>Courses List</h6>
+          @if (\Auth::User()->role_id === 1) 
           <a class="btn btn-outline-default btn-sm mb-0 me-3"  href="{{ route('subject.create') }}">Add</a>
+          @endif
         </div>
         <div class="card-body px-0 pt-0 pb-2">
           <div class="table-responsive p-0">
@@ -16,7 +18,9 @@
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course Name</th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><center>Course Unit</center></th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"><center>Programme</center></th>
+                    @if (\Auth::User()->role_id === 1) 
                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                    @endif
                   </tr>
               </thead>
               <tbody>
@@ -37,6 +41,7 @@
                         <p class="text-xs text-secondary mb-0">{{ $row->class->name }}</p>
                       </center>
                     </td>
+                    @if (\Auth::User()->role_id === 1) 
                     <td class="align-middle">
                       <a href="{{ url('courses/edit/'.$row->uuid) }}" class="text-secondary btn btn-sm btn-outline-success font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                         Edit
@@ -45,6 +50,7 @@
                         Delete
                       </a>
                     </td>
+                    @endif
                   </tr>
                 @endforeach
                 @endif

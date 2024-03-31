@@ -14,7 +14,11 @@ class SubjectController extends Controller
     }
 
     public function index(Request $request){
-        $subject = Subject::paginate(5);
+        if (\Auth::User()->role_id === 0) {
+            $subject = Subject::where('class_id', \Auth::User()->class_id)->paginate(5);
+        } else {
+            $subject = Subject::paginate(5);
+        }
         return view('subject.index', ['subject' => $subject]);
     }
 

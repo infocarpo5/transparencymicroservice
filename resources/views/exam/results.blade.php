@@ -4,6 +4,7 @@
         <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
         <title>Invoicing report</title>
 
+        <link rel="stylesheet" href="{{ asset('assets/css/soft-ui-dashboard.min.css') }}">
         <style>
             table {
                 border-right: 0;
@@ -36,27 +37,27 @@
 
         <div style="text-align: center;">
             <b>STUDENTS EXAMINATION REPORT</b> <br>
-            <b>{{ $student->class->name ?? "" }}E</b> <br>
-            <b>{{ $student->name ?? "Student Name" }}</b>
+            <b>{{ $student->class->name ?? "" }}</b> <br>
+            <b>{{ $student->full_name ?? "" }}</b>
         </div>
  
         <div>
-            <a href="/print-results/{{ $studentID }}">Print</a>
+            <a class="btn btn-sm btn-secondary" href="/print-results/{{ $studentID }}?read=print">Print</a>
         </div>
         <div class="flex justify-between mb-1 mt-3">
         <div class="w-full overflow-x-auto">
             @foreach($data as $semester => $results)
             <table class="w-full whitespace-no-wrap">
                 <thead style="background-color: rgb(204, 134, 14);">
-                    <tr>{{ $semester }} 1</tr>
+                    <tr>{{'Semester ' .$semester }} </tr>
                     <tr
-                        class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        class="text-xs font-semibold tracking-wide text-left text-white uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-2 py-2 text-center">S/N</th>
-                        <th class="px-2 py-2 text-sm" align="left">Subject</th>
-                        <th class="px-2 py-2 text-sm" align="left">Ubit</th>
+                        <th class="px-2 py-2 text-sm" align="left">Course</th>
+                        <th class="px-2 py-2 text-sm" align="left">Unit</th>
                         <th class="px-2 py-2 text-sm" align="left">Score</th>
                         <th class="px-2 py-2 text-sm" align="left">Grade</th>
-                        <th class="px-2 py-2 text-sm text-center">Coment</th>
+                        <th class="px-2 py-2 text-sm text-center">Remark</th>
                     </tr>
                 </thead>
                 @foreach($results as $res)
@@ -80,12 +81,20 @@
                          <td class="px-2 py-2 text-sm">
                             <center> 
                                 {{ $res['score'] > 70 ? 'Excellent' : ($res['score'] > 60 ? 'Very good' : ($res['score'] > 50 ? 'Good' : ($res['score'] > 40 ? 'Pass' : 'Failed'))) }}    
-                            </center>                         </td>
+                            </center> 
+                        </td>
                      </tr>
                 </tbody>
                 @endforeach
             </table>
+            <div class="text-sm">
+                Semester GPA: {{ number_format($gpaBySemester[$semester], 2) }}
+            </div>
             @endforeach
+            <div class="text-bold">
+                Overall GPA: {{ $gpa }} <br>
+                Remark: {{ $remark }}
+            </div>
         </div>
     </div>
     </body>

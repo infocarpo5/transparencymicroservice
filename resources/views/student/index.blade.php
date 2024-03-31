@@ -28,16 +28,16 @@
                 <tr class="text-left">
                   <td class="text-center"><p class="text-xs text-secondary mb-0"> {{ $loop->iteration }}</p></td>
                     <td>
-                      <p class="text-xs text-secondary mb-0">{{ $row->name }}</p>
+                      <p class="text-xs text-secondary mb-0">{{ $row->full_name }}</p>
                     </td>
                     <td>
                       <p class="text-xs text-secondary mb-0">{{ $row->class->name }}</p>
                     </td>
                     <td>
-                      <p class="text-xs text-secondary mb-0">{{ $row->reg }}</p>
+                      <p class="text-xs text-secondary mb-0">{{ $row->email }}</p>
                     </td>
                     <td>
-                      <p class="text-xs text-secondary mb-0">{{ $row->yearAdmitted }}</p>
+                      <p class="text-xs text-secondary mb-0">{{ date("Y", strtotime(($row->created_at))) }}</p>
                     </td>
                     <td>
                       <p class="text-xs text-secondary mb-0">{{ $row->parent_phone }}</p>

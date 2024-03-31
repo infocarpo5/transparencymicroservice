@@ -66,13 +66,13 @@ Route::group(['prefix' => '/exam'], function () {
     Route::any('/update/{id}', [ExamController::class, 'update'])->name('exam.update');
     Route::any('/delete/{id}', [ExamController::class, 'delete'])->name('exam.delete');
     Route::any('/{id?}', [ExamController::class, 'exam'])->name('exam.exam');
-    Route::any('/get-data-to-mark/{id?}', [ExamController::class, 'getDataToMark']);
 });
 Route::post('/mark', [ExamController::class, 'mark']);
-Route::get('/results/{id}', [ExamController::class, 'results']);
-Route::get('/print-results/{id}', [ExamController::class, 'printResults']);
+Route::get('/results/{id}/', [ExamController::class, 'results']);
+Route::get('/print-results/{id}', [ExamController::class, 'results']);
 Route::get('/send-email', [ExamController::class, 'sendEmail']);
 Route::get('/publish-results/{id}', [ExamController::class, 'publishResult'])->name('publish');
+Route::any('/get-data-to-mark/{id?}', [ExamController::class, 'getDataToMark']);
 
 
 

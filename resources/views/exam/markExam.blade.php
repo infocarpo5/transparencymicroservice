@@ -16,7 +16,7 @@
             <table class="table align-items-center mb-0">
               <thead>
                 <tr>
-                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center">#</th>
+                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 text-center"><center>#</center></th>
                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Stdent Name</th>
                   <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mark</th>
                     <th class="text-left text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
@@ -145,7 +145,7 @@ $(document).ready(function () {
 
   $.ajax({
     type: "get",
-    url: `/exam/get-data-to-mark/${examId}`,
+    url: `/get-data-to-mark/${examId}`,
     dataType: "JSON",
     success: function (response) {
       let studentsHtml = '';
@@ -153,7 +153,7 @@ $(document).ready(function () {
 
       response.data.forEach(function(item, index) {
       studentsHtml += '<tr class="text-left">';
-      studentsHtml += '<td class="text-left"><p class="text-xs text-secondary mb-0">' + (index + 1) + '</p></td>';
+      studentsHtml += '<td class="text-left"><p class="text-xs text-secondary mb-0 text-center">' + (index + 1) + '</p></td>';
       studentsHtml += '<td class="text-left"><a href="/results/'+ item.studentId +'">' + item.studentName + '</a></td>';
       studentsHtml += '<td class="text-left">' + (item.score !== null ? item.score : '<input type="text" id="score_input_' + item.studentId + '" class="form-control score-input" name="mark"  placeholder="Fill marks">') + '</td>';
       studentsHtml += '</tr>';
@@ -192,18 +192,18 @@ $(document).ready(function () {
         dataType: "JSON",
         success: function (response) {
         console.log(response);
-        if (response.status == 200) {
-          toastr.success(response.success);
+        if (response.status === 200) {
+          // toastr.success(response.data.success);
           $.ajax({
             type: "get",
-            url: `/exam/get-data-to-mark/${examId}`,
+            url: `/get-data-to-mark/${examId}`,
             dataType: "JSON",
             success: function (response) {
               $("#data-here").empty();
               let studentsHtml = '';
               let index = 1;
 
-              response.forEach(function(item, index) {
+              response.data.forEach(function(item, index) {
               studentsHtml += '<tr class="text-left">';
               studentsHtml += '<td class="text-left"><p class="text-xs text-secondary mb-0">' + (index + 1) + '</p></td>';
               studentsHtml += '<td class="text-left"><p class="text-xs text-secondary mb-0">' + item.studentName + '</p></td>';
@@ -211,6 +211,10 @@ $(document).ready(function () {
               studentsHtml += '</tr>';
             });
               $("#data-here").append(studentsHtml);
+              if (response.show_publish_button === true) {
+                $(".publish").text("Publish");
+                $(".publish").addClass("btn btn-outline-default btn-sm ");
+              }
             }
           });
         } else {

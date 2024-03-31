@@ -16,7 +16,7 @@ class StudentController extends Controller
     }
 
     public function index(Request $request){
-        $student = Student::paginate(5);
+        $student = User::where('role_id', 0)->paginate(5);
         return view('student.index', ['student' => $student]);
     }
 
@@ -28,9 +28,10 @@ class StudentController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        // dd($request->all());
+        $request->validate([
             'name' => ['required', 'string'],
-            'gender' => ['required', 'string'],
+            'gender' => ['required'],
             'yearAdmitted' => ['required', 'string'],
             'parent_name' => ['required', 'string'],
             'parent_email' => ['required', 'email'],
@@ -38,10 +39,38 @@ class StudentController extends Controller
             'reg' => ['required', 'string'],
             'class_id' => ['required'],
         ]);
-        $data['uuid']  = \Str::uuid();
-        $data['password']  = \Hash::make($request->parent_phone);
-        $data['role_id']  = 0;
-        User::create($data);
+        // $data['uuid']  = \Str::uuid();
+        // $data['password']  = \Hash::make($request->parent_phone);
+        // $data['role_id']  = 0;
+        // $data['reg']  = $request->email;
+        // dd($data);
+        User::create([
+            'full_name' => $request->name,
+            'parent_phone' => $request->parent_phone,
+            'parent_name' => $request->parent_name,
+            'parent_email' => $request->parent_email,
+            'class_id' => $request->class_id,
+            'email' => $request->reg,
+            'role_id' => 0,
+            'uuid' => \Str::uuid(),
+            'password' => \Hash::make($request->parent_phone),
+        ]);
         return redirect('/student/index')->with('success', 'student added successfully');
+    }
+
+    public function delete($id)
+    {
+        $deleted = User::where('uuid', $id)->first()->delete();
+        if($deleted) {
+            return redirect('/student/index')->with('success', 'student deleted successfully');
+        }
+    }
+
+    public function edit($id)
+    {
+        $student = User::where('uuid', $id)->first();
+        return view('student.edit', [
+            'class' => $student
+        ]);
     }
 }

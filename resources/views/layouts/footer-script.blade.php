@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/sweetalert.min.css') }}"> 
 <script src="{{ asset('assets/js/sweetalert.min.js') }}"></script>
  <script src="{{asset('assets/js/toastify.js') }}"></script>
+ <script src="{{ asset('plugins/toastr/toastr.min.js') }}"></script>
 
  <script>
    var ctx = document.getElementById("chart-bars").getContext("2d");

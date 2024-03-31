@@ -20,7 +20,8 @@ return new class extends Migration
             $table->string('uuid')->nullable();
             $table->integer('role_id')->default(2); //1 for admin and 2 for student 3 for parent
             $table->integer('status')->default(1); //1 for active and 0 for inactive
-            $table->string('email')->unique();
+            $table->integer('class_id')->nullable(); 
+            $table->string('email')->unique()->nullable();
             $table->string('parent_name')->nullable();
             $table->string('parent_phone')->nullable();
             $table->string('parent_email')->nullable();
