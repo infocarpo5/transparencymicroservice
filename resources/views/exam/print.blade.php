@@ -40,19 +40,19 @@
             <b>{{ $student->full_name ?? "" }}</b>
         </div>
  
-        <div class="flex justify-between mb-1 mt-3">
+        <div class=" mb-1 mt-3">
             <div class="w-full overflow-x-auto">
                 @foreach($data as $semester => $results)
                 <table class="w-full whitespace-no-wrap">
-                    <thead style="background-color: rgb(204, 134, 14);">
+                    <thead>
                         <tr>
                             <th colspan="5">{{ 'Semester ' . $semester }}</th>
                         </tr>
-                        <tr class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                        <tr style="background-color: rgb(204, 134, 14);" class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                             <th class="px-2 py-2 text-center">S/N</th>
                             <th class="px-2 py-2 text-sm" align="left">Course</th>
-                            <th class="px-2 py-2 text-sm" align="left">Score</th>
-                            <th class="px-2 py-2 text-sm" align="left">Grade</th>
+                            <th class="px-2 py-2 text-sm" align="center">Score</th>
+                            <th class="px-2 py-2 text-sm" align="center">Grade</th>
                             <th class="px-2 py-2 text-sm text-center">Remark</th>
                         </tr>
                     </thead>
@@ -65,10 +65,10 @@
                             <td class="px-2 py-2 text-sm">
                                 {{ $res['subject'] ?? "" }}
                             </td>
-                            <td class="px-2 py-2 text-sm">
+                            <td class="px-2 py-2 text-sm" align="center">
                                 {{ $res['score'] }}
                             </td>
-                            <td class="px-2 py-2 text-sm text-center">
+                            <td class="px-2 py-2 text-sm text-center" align="center">
                                 {{ $res['score'] > 70 ? 'A' : ($res['score'] > 60 ? 'B' : ($res['score'] > 50 ? 'C' : ($res['score'] > 40 ? 'D' : 'F'))) }}
                             </td>
                             <td class="px-2 py-2 text-sm">

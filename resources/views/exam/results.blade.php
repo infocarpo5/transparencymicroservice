@@ -53,10 +53,10 @@
                     <tr
                         class="text-xs font-semibold tracking-wide text-left text-white uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                         <th class="px-2 py-2 text-center">S/N</th>
-                        <th class="px-2 py-2 text-sm" align="left">Course</th>
-                        <th class="px-2 py-2 text-sm" align="left">Unit</th>
-                        <th class="px-2 py-2 text-sm" align="left">Score</th>
-                        <th class="px-2 py-2 text-sm" align="left">Grade</th>
+                        <th class="px-2 py-2 text-sm text-left">Course</th>
+                        <th class="px-2 py-2 text-sm text-center">Unit</th>
+                        <th class="px-2 py-2 text-sm text-center">Score</th>
+                        <th class="px-2 py-2 text-sm text-center">Grade</th>
                         <th class="px-2 py-2 text-sm text-center">Remark</th>
                     </tr>
                 </thead>
@@ -69,13 +69,13 @@
                          <td class="px-2 py-2 text-sm">
                             {{ $res['subject'] ?? "" }}
                          </td>
-                         <td class="px-2 py-2 text-sm">
+                         <td class="px-2 py-2 text-sm text-center">
                             {{ $res['unit'] ?? "" }}
                         </td>
-                         <td class="px-2 py-2 text-sm">
+                         <td class="px-2 py-2 text-sm" align="center">
                              {{ $res['score'] }}
                          </td>
-                         <td class="px-2 py-2 text-sm text-center">
+                         <td class="px-2 py-2 text-sm text-center" align="center">
                             {{ $res['score'] > 70 ? 'A' : ($res['score'] > 60 ? 'B' : ($res['score'] > 50 ? 'C' : ($res['score'] > 40 ? 'D' : 'F'))) }}
                          </td>
                          <td class="px-2 py-2 text-sm">

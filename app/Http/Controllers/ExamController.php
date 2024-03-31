@@ -68,18 +68,16 @@ class ExamController extends Controller
 
     public function exam($uuid)
     {
-        // $exam = Exam::whereUuid($uuid)->first();
-        // $score = ExamScore::where('exam_id', $exam->id)->first();
+        $exam = Exam::whereUuid($uuid)->first();
         return view('exam.markExam', [
-            'exam' => $score->exam->name ?? "",
-            'exam' => "bios" ?? "",
+            'exam' => $exam->exam->name ?? "",
+            'exam' => ucwords($exam->subject->name) ?? "",
             'exam_id' => $uuid,
         ]);
     }
 
     public function getDataToMark($uuid)
     {
-        // dd(request()->all());
         $exam = Exam::where('uuid', $uuid)->first();
         $query = ExamScore::where('exam_id', $exam->id);
         $data = $query->get()->map(fn ($item) => [
@@ -89,7 +87,7 @@ class ExamController extends Controller
             'score' => $item->score,
             'unit' => $item->exam->subject->unit ?? "",
         ]);
-        $unmarked = $query->where('score', null)->where('is_published', 0)->get()->count();
+        $unmarked = ExamScore::where('exam_id', $exam->id)->whereNull('score')->count();  
         $response = [
             'data' => $data,
             'show_publish_button' => $unmarked > 0 ? false : true
@@ -99,13 +97,12 @@ class ExamController extends Controller
 
     public function mark()
     {
-        // dd(request()->all());
        $score = ExamScore::whereIn('student_id', User::where('uuid', request('studentId'))->get(['id']))->whereIn('exam_id', Exam::where('uuid', request('examId'))->get(['id']))->first();
        $updated = $score->update([
         'score' => request('score')
        ]);
        $unmarked = ExamScore::whereIn('student_id', User::where('uuid', request('studentId'))->get(['id']))->whereIn('exam_id', Exam::where('uuid', request('examId'))->get(['id']))
-       ->where('score', null)->where('is_published', 0)->get()->count();
+       ->whereNull('score')->where('is_published', 0)->count();
 
        if ($updated) {
         return response()->json([
@@ -217,8 +214,8 @@ class ExamController extends Controller
         
         foreach($exam_scores as $student) {
             $title = 'School Info';
-            $body = 'We would like to inform you that the results of your student ' .ucwords($student->student->name). ' have published. Please use the credentials below to log into your platform so that you can view results via API!';
-            Mail::to($student->student->parent_email)->send(new SendToParent($title, $body));
+            $body = 'We would like to inform you that the results of your student ' .ucwords($student->user->full_name ?? ""). ' have published. Please use the credentials below to log into your platform so that you can view results via API!';
+            Mail::to($student->user->parent_email)->send(new SendToParent($title, $body));
         }
         return back()->withSuccess("Results successfully published");
     }
