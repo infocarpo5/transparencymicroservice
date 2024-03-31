@@ -1,4 +1,4 @@
-
+@if(Auth::user()->role_id === 1)
 <div class="row">
     <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
         <div class="card">
@@ -93,3 +93,58 @@
         </div>
     </div>
 </div>
+@endif
+
+@if(Auth::user()->role_id === 0)
+<div>
+    <h3>Student Profile</h3>
+</div>
+<table class="table  ">
+    <tbody class="table-striped table-bordered">
+        <tr>
+            <th>Name</th>
+            <td>Kelvin</td>
+            <th>Reg</th>
+            <td>NIT/BIT/2019/1</td>
+        </tr>
+        <tr>
+            <th>Programme</th>
+            <td>BIT</td>
+            <th>A/y</th>
+            <td>2019/1</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>Active</td>
+            <th>Dender</th>
+            <td>Male</td>
+        </tr>
+    </tbody>
+</table>
+
+<div>
+    <h3>Next Keen Info</h3>
+</div>
+<table class="table  ">
+    <tbody class="table-striped table-bordered">
+        <tr>
+            <th>Parent Name</th>
+            <td>Kelvin</td>
+            <th>Reg</th>
+            <td>NIT/BIT/2019/1</td>
+        </tr>
+        <tr>
+            <th>Programme</th>
+            <td>BIT</td>
+            <th>A/y</th>
+            <td>2019/1</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>Active</td>
+            <th>Dender</th>
+            <td>Male</td>
+        </tr>
+    </tbody>
+</table>
+@endif
